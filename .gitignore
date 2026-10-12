@@ -1,3 +1,4 @@
 # Viva notes / Word files sirf apne paas rakhne hain, site pe nahi
 *.docx
 ~$*
+*.pdf
