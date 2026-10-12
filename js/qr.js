@@ -6,6 +6,8 @@
 setupTopbar();
 
 const user = currentUser();
+// har user ka sticker alag save hota hai (purane login me username nahi tha)
+const userKey = user.username || user.phone;
 const form = document.getElementById("qrForm");
 const canvas = document.getElementById("stickerCanvas");
 const errorEl = document.getElementById("qrError");
@@ -148,7 +150,7 @@ form.addEventListener("submit", (e) => {
 
   // remember per user so the sticker is there next time
   const saved = Store.get(KEYS.myQr, {});
-  saved[user.phone] = data;
+  saved[userKey] = data;
   Store.set(KEYS.myQr, saved);
 
   generate(data).then(() => {
@@ -199,7 +201,8 @@ document.getElementById("testBtn").addEventListener("click", () => {
 
 /* ---------- Load saved sticker or prefill ---------- */
 
-const saved = Store.get(KEYS.myQr, {})[user.phone];
+const allSaved = Store.get(KEYS.myQr, {});
+const saved = allSaved[userKey] || allSaved[user.phone];
 
 if (saved) {
   document.getElementById("qrPlate").value = saved.v;

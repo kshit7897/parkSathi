@@ -52,10 +52,10 @@
         <!-- Login form -->
         <form id="loginForm" novalidate>
           <div class="field">
-            <label for="loginPhone">Mobile number</label>
+            <label for="loginUser">Username</label>
             <div class="input-wrap">
-              <i class="ri-smartphone-line"></i>
-              <input class="input" id="loginPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number" autocomplete="tel">
+              <i class="ri-at-line"></i>
+              <input class="input" id="loginUser" type="text" maxlength="20" placeholder="Enter username" autocomplete="username" autocapitalize="none" spellcheck="false">
             </div>
           </div>
 
@@ -85,11 +85,21 @@
           </div>
 
           <div class="field">
+            <label for="regUser">Username</label>
+            <div class="input-wrap">
+              <i class="ri-at-line"></i>
+              <input class="input" id="regUser" type="text" maxlength="20" placeholder="e.g. rahul_22" autocomplete="username" autocapitalize="none" spellcheck="false">
+            </div>
+            <p class="hint">3–20 characters: small letters, numbers, _ or .</p>
+          </div>
+
+          <div class="field">
             <label for="regPhone">Mobile number</label>
             <div class="input-wrap">
               <i class="ri-smartphone-line"></i>
               <input class="input" id="regPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number" autocomplete="tel">
             </div>
+            <p class="hint">Used on your vehicle QR sticker.</p>
           </div>
 
           <div class="field">
@@ -108,7 +118,7 @@
         </form>
 
         <p class="notice auth-note">
-          <span><strong>Demo login:</strong> 9876543210 / admin123</span>
+          <span><strong>Demo login:</strong> admin / admin123</span>
         </p>
       </div>
     </main>

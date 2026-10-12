@@ -6,11 +6,21 @@
 // Already logged in? go to home
 if (currentUser()) location.replace("home.html");
 
-// Demo account so the app can be shown without registering
+// Purane users (jinka username nahi tha): demo ko "admin", baaki ko unka mobile number
 const users = Store.get(KEYS.users, []);
-if (!users.some((u) => u.phone === "9876543210")) {
-  users.push({ name: "Admin", phone: "9876543210", password: "admin123" });
-  Store.set(KEYS.users, users);
+users.forEach((u) => {
+  if (!u.username) u.username = u.phone === "9876543210" ? "admin" : u.phone;
+});
+
+// Demo account so the app can be shown without registering
+if (!users.some((u) => u.username === "admin")) {
+  users.push({ name: "Admin", username: "admin", phone: "9876543210", password: "admin123" });
+}
+Store.set(KEYS.users, users);
+
+// small letters, numbers, _ aur . (3 se 20 characters)
+function isValidUsername(name) {
+  return /^[a-z0-9_.]{3,20}$/.test(name);
 }
 
 const loginForm = document.getElementById("loginForm");
@@ -67,7 +77,7 @@ function showError(id, message) {
 }
 
 function startSession(user) {
-  Store.set(KEYS.session, { name: user.name, phone: user.phone });
+  Store.set(KEYS.session, { name: user.name, username: user.username, phone: user.phone });
   document.querySelectorAll(".error").forEach((el) => el.classList.add("hidden"));
 
   // barrier upar uthta hai, gaadi andar jaati hai, phir Home khulta hai
@@ -80,14 +90,15 @@ function startSession(user) {
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const phone = document.getElementById("loginPhone").value.trim();
+  // username me capital/small ka farak nahi
+  const username = document.getElementById("loginUser").value.trim().toLowerCase();
   const password = document.getElementById("loginPass").value;
 
-  if (!isValidPhone(phone)) return showError("loginError", "Enter a valid 10 digit mobile number.");
+  if (!username) return showError("loginError", "Enter your username.");
   if (!password) return showError("loginError", "Enter your password.");
 
-  const user = Store.get(KEYS.users, []).find((u) => u.phone === phone && u.password === password);
-  if (!user) return showError("loginError", "Mobile number or password is wrong.");
+  const user = Store.get(KEYS.users, []).find((u) => u.username === username && u.password === password);
+  if (!user) return showError("loginError", "Username or password is wrong.");
 
   startSession(user);
 });
@@ -97,19 +108,23 @@ loginForm.addEventListener("submit", (e) => {
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.getElementById("regName").value.trim();
+  const username = document.getElementById("regUser").value.trim().toLowerCase();
   const phone = document.getElementById("regPhone").value.trim();
   const password = document.getElementById("regPass").value;
 
   if (name.length < 2) return showError("registerError", "Enter your full name.");
+  if (!isValidUsername(username)) {
+    return showError("registerError", "Username: 3–20 characters, only small letters, numbers, _ or .");
+  }
   if (!isValidPhone(phone)) return showError("registerError", "Enter a valid 10 digit mobile number.");
   if (password.length < 6) return showError("registerError", "Password must be at least 6 characters.");
 
   const list = Store.get(KEYS.users, []);
-  if (list.some((u) => u.phone === phone)) {
-    return showError("registerError", "This number is already registered. Please login.");
+  if (list.some((u) => u.username === username)) {
+    return showError("registerError", "This username is taken. Try another one.");
   }
 
-  const user = { name, phone, password };
+  const user = { name, username, phone, password };
   list.push(user);
   Store.set(KEYS.users, list);
   startSession(user);
