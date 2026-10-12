@@ -1,0 +1,270 @@
+/* =========================================================
+   login.css - sirf Login / Register page (index.html)
+   Phone: upar blue brand section, neeche form
+   Laptop: left me blue panel, right me form
+   ========================================================= */
+
+.auth {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+/* ---------- Blue brand section ---------- */
+
+.auth-art {
+  overflow: hidden; /* gaadi bahar na nikle */
+  padding: var(--space-6) var(--space-4) var(--space-5);
+  background: var(--navy);
+  color: #fff;
+}
+
+.art-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* parking sign jaisa "P" */
+.big-p {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  background: var(--primary);   /* asli parking board jaisa: blue + white P */
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.auth-art h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.auth-art h2 {
+  max-width: 380px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+/* ---------- Boom barrier ---------- */
+
+.gate {
+  position: relative;
+  overflow: hidden; /* upar utha danda heading pe na aaye */
+  height: 96px;
+  max-width: 360px;
+  margin-top: var(--space-5);
+}
+
+/* sadak */
+.gate-road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 2px dashed rgba(255, 194, 51, 0.6);
+}
+
+/* khamba */
+.gate-post {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 26px;
+  height: 58px;
+  border-radius: 4px 4px 0 0;
+  background: #f2f4f8;
+}
+
+/* khambe pe laal/hari light */
+.gate-post span {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5a4e;
+  transition: background-color 0.2s;
+}
+
+/* laal-safed danda */
+.gate-arm {
+  position: absolute;
+  left: 13px;
+  bottom: 40px;
+  width: 85%;
+  height: 10px;
+  border-radius: 5px;
+  background: repeating-linear-gradient(90deg, #ff5a4e 0 22px, #fff 22px 44px);
+  transform-origin: 5px 50%;
+  transition: transform 0.55s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+/* gaadi jo login ke baad andar jaati hai */
+.gate-car {
+  position: absolute;
+  left: -50px;
+  bottom: 2px;
+  font-size: 34px;
+  color: #fff;
+  opacity: 0;
+}
+
+/* login sahi hua */
+.gate.open .gate-arm {
+  transform: rotate(-80deg);
+}
+
+.gate.open .gate-post span {
+  background: #3ddc84;
+}
+
+.gate.open .gate-car {
+  animation: driveIn 0.7s 0.35s ease-in forwards;
+}
+
+@keyframes driveIn {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(420px); }
+}
+
+/* galat password: danda "na" me hilta hai */
+.gate.denied .gate-arm {
+  animation: deny 0.45s ease;
+}
+
+@keyframes deny {
+  20% { transform: rotate(-6deg); }
+  45% { transform: rotate(3deg); }
+  70% { transform: rotate(-3deg); }
+}
+
+.auth-art ul {
+  display: none; /* phone pe jagah bachane ke liye */
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.auth-art li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  color: #c9d3e6;
+}
+
+.auth-art li i {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+/* ---------- Form section ---------- */
+
+.auth-main {
+  flex: 1;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.auth-inner {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  animation: pageIn 0.35s ease-out;
+}
+
+.auth h1 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.auth-sub {
+  margin: var(--space-1) 0 var(--space-5);
+  color: var(--muted);
+}
+
+.auth .segmented {
+  margin-bottom: var(--space-5);
+}
+
+.auth-note {
+  margin-top: var(--space-5);
+}
+
+/* password dikhane / chhupane wala aankh button */
+.toggle-pass {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: none;
+  font-size: 18px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* =========================================================
+   Media queries
+   ========================================================= */
+
+/* Tablet & laptop: dono side by side */
+@media (min-width: 768px) {
+  .auth {
+    flex-direction: row;
+  }
+
+  .auth-art {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-7);
+  }
+
+  .art-brand {
+    margin-bottom: auto; /* heading ko neeche dhakel deta hai */
+    font-size: 24px;
+  }
+
+  .big-p {
+    width: 64px;
+    height: 64px;
+    border-width: 4px;
+    border-radius: 12px;
+    font-size: 40px;
+  }
+
+  .auth-art h2 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .auth-art ul {
+    display: block;
+  }
+
+  .auth-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: var(--space-7) var(--space-6);
+  }
+
+  .auth h1 {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,382 @@
+/* =========================================================
+   home.css - sirf Home / Dashboard page (home.html)
+   ========================================================= */
+
+/* ---------- Top area: availability + stats ---------- */
+
+.home-top {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* ---------- Availability section (navy) ---------- */
+
+.avail {
+  display: block;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: #fff;
+  transition: transform 0.15s;
+}
+
+.avail:active {
+  transform: scale(0.99);
+}
+
+.avail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avail-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* "Live" ke saath dhadakti light */
+.avail-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  font-weight: 700;
+  color: #c9d3e6;
+}
+
+.avail-live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: livePulse 1.6s infinite;
+}
+
+@keyframes livePulse {
+  50% { opacity: 0.25; }
+}
+
+.avail-rings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin: var(--space-5) 0 var(--space-4);
+}
+
+.ring-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* gol chart: SVG circle + stroke-dasharray */
+.ring {
+  position: relative;
+  width: 116px;
+  height: 116px;
+}
+
+.ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* 12 baje se shuru */
+}
+
+.ring circle {
+  fill: none;
+  stroke-width: 10;
+}
+
+.ring-track {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.ring-fill {
+  stroke: #34d399;
+  stroke-linecap: round;
+  stroke-dasharray: 326.7;   /* 2 x 3.14 x 52 = poora gol */
+  stroke-dashoffset: 326.7;  /* shuru me khaali */
+  transition: stroke-dashoffset 1s ease, stroke 0.3s;
+}
+
+.ring-fill.low {
+  stroke: var(--accent);     /* kam slots bache */
+}
+
+.ring-fill.full {
+  stroke: #f87171;           /* parking full */
+}
+
+.ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-text strong {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ring-text span {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9fb0cc;
+}
+
+.ring-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dbe3f0;
+}
+
+.ring-label i {
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.avail-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ---------- Stats boxes ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;   /* phone: icon upar, text neeche */
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+/* rangeen gol icon */
+.stat-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.stat-icon.blue {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.stat-icon.green {
+  background: var(--free-soft);
+  color: var(--free);
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.stat-value small {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- Quick actions ---------- */
+
+.actions {
+  overflow: hidden;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+  transition: background-color 0.15s;
+}
+
+.action:last-child {
+  border-bottom: 0;
+}
+
+.action:hover {
+  background: #fafbfc;
+}
+
+.action-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 22px;
+}
+
+.action-icon.yellow {
+  background: var(--accent-soft);
+  color: #a86b00;
+}
+
+.action-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-text strong {
+  display: block;
+  font-size: 15px;
+}
+
+.action-text span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.action > .ri-arrow-right-s-line {
+  font-size: 22px;
+  color: var(--muted);
+}
+
+/* ---------- Recent activity ---------- */
+
+.activity {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.activity li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.activity li:last-child {
+  border-bottom: 0;
+}
+
+.act-icon {
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.act-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.act-main strong {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.act-main span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.act-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.act-amount {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* IN / OUT tag */
+.tag {
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.tag-in {
+  background: var(--free-soft);
+  color: var(--free);
+}
+
+.tag-out {
+  background: #eceef2;
+  color: var(--muted);
+}
+
+/* =========================================================
+   Media queries
+   ========================================================= */
+
+@media (min-width: 768px) {
+  /* availability left, stats right side me upar-neeche */
+  .home-top {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .avail {
+    padding: var(--space-5) var(--space-5) var(--space-4);
+  }
+
+  .ring {
+    width: 132px;
+    height: 132px;
+  }
+
+  .stat {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-5);
+  }
+
+  .stat-value {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,94 @@
+/* =========================================================
+   qr.css - sirf My QR page (qr.html)
+   ========================================================= */
+
+.qr-layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.qr-form,
+.qr-result {
+  padding: var(--space-5) var(--space-4);
+}
+
+.qr-result {
+  text-align: center;
+}
+
+/* sticker preview */
+.qr-result canvas {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius-sm);
+  animation: pageIn 0.35s ease-out;
+}
+
+.qr-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.qr-actions .btn:first-child {
+  grid-column: 1 / -1; /* Download button poori width */
+}
+
+.qr-result .notice {
+  margin-top: var(--space-4);
+}
+
+.qr-empty {
+  padding: var(--space-6) 0;
+  color: var(--muted);
+}
+
+.qr-empty i {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 48px;
+  color: #c3c8d0;
+}
+
+/* =========================================================
+   Media queries
+   ========================================================= */
+
+/* Tablet & laptop: form left, sticker right */
+@media (min-width: 768px) {
+  .qr-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .qr-form,
+  .qr-result {
+    padding: var(--space-5);
+  }
+
+  .qr-result {
+    position: sticky;
+    top: calc(var(--topbar-h) + var(--space-5));
+  }
+}
+
+/* Print: sirf sticker print hoga */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #stickerCanvas {
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 9cm !important;
+    max-width: none !important;
+    transform: translateX(-50%);
+  }
+}

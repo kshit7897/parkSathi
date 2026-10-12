@@ -1,0 +1,148 @@
+/* =========================================================
+   owner.css - sirf Owner page (owner.html)
+   Ye page QR scan karne pe khulta hai
+   ========================================================= */
+
+.owner {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-top {
+  padding: var(--space-3) var(--space-4);
+  background: var(--navy);
+}
+
+.owner-top .brand {
+  color: #fff;
+}
+
+.owner-body {
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  animation: pageIn 0.35s ease-out;
+}
+
+.owner-title {
+  margin-bottom: var(--space-4);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+/* ---------- Vehicle card ---------- */
+
+.owner-card {
+  overflow: hidden;
+  text-align: center;
+}
+
+.owner-card-top {
+  padding: var(--space-5) var(--space-4);
+}
+
+.owner-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--space-3);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.owner-type i {
+  font-size: 18px;
+}
+
+.owner-card .plate {
+  font-size: 24px;
+}
+
+.owner-model {
+  margin-top: var(--space-3);
+  color: var(--muted);
+}
+
+.owner-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line);
+  background: #fafbfc;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.owner-name strong {
+  color: var(--text);
+}
+
+/* ---------- Reason chips ---------- */
+
+.reason-label {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.chip.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ---------- Call / WhatsApp ---------- */
+
+.owner-actions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.owner-foot {
+  margin-top: var(--space-5);
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* =========================================================
+   Media queries
+   ========================================================= */
+
+@media (min-width: 480px) {
+  .owner-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .owner-body {
+    padding-top: var(--space-7);
+  }
+}

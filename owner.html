@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1e3d">
+  <title>Contact Vehicle Owner · ParkSathi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/owner.css">
+</head>
+<body>
+  <!-- Public page: opens when someone scans the sticker. No login needed. -->
+
+  <div class="owner">
+    <div class="owner-top">
+      <div class="brand"><span class="brand-mark">P</span>ParkSathi</div>
+    </div>
+
+    <main class="owner-body">
+      <!-- Valid QR -->
+      <div id="ownerView" class="hidden">
+        <h1 class="owner-title">Contact vehicle owner</h1>
+
+        <div class="panel owner-card">
+          <div class="owner-card-top">
+            <div class="owner-type" id="ownerType"></div>
+            <div><span class="plate" id="ownerPlate"></span></div>
+            <p class="owner-model" id="ownerModel"></p>
+          </div>
+          <p class="owner-name">
+            <i class="ri-user-line"></i>
+            Owner: <strong id="ownerName"></strong>
+          </p>
+        </div>
+
+        <p class="reason-label">What's the issue?</p>
+        <div class="chips" id="reasons">
+          <button type="button" class="chip active" data-msg="block">Blocking my vehicle</button>
+          <button type="button" class="chip" data-msg="lights">Lights are on</button>
+          <button type="button" class="chip" data-msg="window">Window is open</button>
+          <button type="button" class="chip" data-msg="wrong">Parked in my spot</button>
+        </div>
+
+        <div class="owner-actions">
+          <a class="btn btn-primary" id="callBtn" href="#"><i class="ri-phone-line"></i>Call owner</a>
+          <a class="btn btn-green" id="waBtn" href="#" target="_blank" rel="noopener"><i class="ri-whatsapp-line"></i>WhatsApp</a>
+        </div>
+
+        <p class="owner-foot">Please be polite. The owner chose to share this number for parking issues only.</p>
+      </div>
+
+      <!-- Broken / fake QR -->
+      <div id="errorView" class="hidden">
+        <div class="panel empty">
+          <i class="ri-error-warning-line"></i>
+          <strong>This QR code is not valid.</strong><br>
+          Ask the guard at the gate for help.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/owner.js"></script>
+</body>
+</html>

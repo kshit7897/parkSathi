@@ -1,0 +1,682 @@
+/* =========================================================
+   ParkSathi - common.css
+   Jo styles HAR page pe same hain: colours, font, header,
+   bottom nav, buttons, forms, toast, animations.
+   Mobile-first: pehle phone ki CSS, neeche media queries.
+   ========================================================= */
+
+/* ---------- 1. Colours & spacing (CSS variables) ---------- */
+
+:root {
+  /* Theme: navy (bharosa) + parking sign blue + road-marking yellow */
+  --navy: #0f1e3d;           /* header, hero sections */
+  --navy-2: #1b2c52;         /* navy ke andar ke dabbe */
+  --primary: #1747c4;        /* parking sign blue: buttons, links */
+  --primary-dark: #10379b;
+  --primary-soft: #e8eefc;
+  --accent: #ffc233;         /* sadak ki peeli line: highlights */
+  --accent-soft: #fff4d6;
+
+  --bg: #f4f6fa;
+  --surface: #ffffff;
+  --text: #121a2b;
+  --muted: #5b6577;
+  --line: #e3e7ee;
+
+  --free: #16a34a;           /* khaali slot */
+  --free-soft: #e7f6ec;
+  --busy: #dc2626;           /* bhara slot */
+  --busy-soft: #fdecec;
+  --amber: #f2b705;
+
+  --shadow: 0 1px 2px rgba(15, 30, 61, 0.06), 0 4px 12px rgba(15, 30, 61, 0.05);
+
+  --radius: 12px;
+  --radius-sm: 6px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --topbar-h: 56px;
+  --bottomnav-h: 64px;
+}
+
+/* ---------- 2. Reset & base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+i[class^="ri-"] {
+  line-height: 1;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- 3. Brand (P logo + name) ---------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* ---------- 4. Top bar ---------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  background: var(--navy);
+  color: #fff;
+}
+
+.topbar .brand {
+  color: #fff;
+}
+
+.topbar-nav {
+  display: none; /* phone pe bottom nav use hota hai */
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.user-chip {
+  display: none;
+  font-size: 14px;
+  color: #b9c3d6;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 20px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+}
+
+/* navy header ke andar wala button */
+.topbar .icon-btn {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #dbe3f0;
+}
+
+.topbar .icon-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* ---------- 5. Bottom nav (sirf phone) ---------- */
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.bottom-nav a i {
+  font-size: 22px;
+}
+
+.bottom-nav a {
+  position: relative;
+}
+
+.bottom-nav a.active {
+  color: var(--navy);
+}
+
+/* active tab ke upar peeli line */
+.bottom-nav a.active::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 30%;
+  right: 30%;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--accent);
+}
+
+/* ---------- 6. Page layout ---------- */
+
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) calc(var(--bottomnav-h) + var(--space-6));
+  animation: pageIn 0.3s ease-out;
+}
+
+.page-head {
+  margin-bottom: var(--space-5);
+}
+
+.page-head h1 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.page-head p {
+  margin-top: var(--space-1);
+  color: var(--muted);
+}
+
+.section {
+  margin-top: var(--space-6);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.section-title span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- 7. Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn i {
+  font-size: 18px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  border-color: #c5cad3;
+}
+
+.btn-danger {
+  background: var(--busy);
+  color: #fff;
+}
+
+.btn-green {
+  background: #1a9e4b;
+  color: #fff;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------- 8. Forms ---------- */
+
+.field {
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field .hint {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.field .error {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--busy);
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap > i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 16px; /* 16px se kam ho toh iPhone zoom kar deta hai */
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input-wrap > i + .input {
+  padding-left: 44px;
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.input.invalid {
+  border-color: var(--busy);
+}
+
+/* vehicle number: capital letters, thoda spacing */
+.input-plate {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.input-plate::placeholder {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+/* Segmented control: Login/Register, All/Car/Bike */
+.segmented {
+  display: flex;
+  padding: 3px;
+  background: #e7e9ee;
+  border-radius: 8px;
+}
+
+.segmented button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.segmented button.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 9. Indian number plate (HSRP) look ---------- */
+
+.plate {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px 6px 0;
+  overflow: hidden;
+  border: 2px solid var(--text);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+/* left side ki blue "IND" patti */
+.plate::before {
+  content: "IND";
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
+  margin: -6px 10px -6px 0;
+  padding: 0 4px 4px;
+  background: #0b4ea2;
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+/* number plate jaisa input box */
+.plate-field {
+  display: flex;
+  overflow: hidden;
+  border: 2px solid var(--text);
+  border-radius: 8px;
+  background: #fff;
+  transition: box-shadow 0.15s;
+}
+
+.plate-field:focus-within {
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.plate-field .plate-ind {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 6px 6px;
+  background: #0b4ea2;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.plate-field .input {
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.plate-field .input:focus {
+  box-shadow: none;
+}
+
+.plate-field.invalid {
+  border-color: var(--busy);
+}
+
+/* ---------- 10. Notice box & empty state ---------- */
+
+.notice {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: #fdf8e6;
+  font-size: 13px;
+  color: #5c4a00;
+  text-align: left;
+}
+
+.notice i {
+  font-size: 18px;
+}
+
+.empty {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.empty i {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 30px;
+  color: #b4b9c2;
+}
+
+/* ---------- 11. Toast message ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--bottomnav-h) + var(--space-4));
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: calc(100% - 32px);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: #1d2027;
+  color: #fff;
+  font-size: 14px;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+.toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.toast i {
+  font-size: 18px;
+}
+
+.toast.success i {
+  color: #5fd08a;
+}
+
+.toast.error i {
+  color: #ff8b80;
+}
+
+/* ---------- 12. Animations ---------- */
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* jinhone phone me animation band kiya hai unke liye band */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   Media queries (common parts)
+   ========================================================= */
+
+/* Tablet & laptop: nav upar aa jaata hai */
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .topbar {
+    padding: 0 var(--space-5);
+  }
+
+  .topbar-nav {
+    display: flex;
+    gap: var(--space-1);
+    margin-right: auto;
+    margin-left: var(--space-6);
+  }
+
+  .topbar-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    color: #b9c3d6;
+  }
+
+  .topbar-nav a:hover {
+    color: #fff;
+  }
+
+  .topbar-nav a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: inset 0 -2px 0 var(--accent); /* neeche peeli line */
+  }
+
+  .user-chip {
+    display: inline;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  .page {
+    padding: var(--space-6) var(--space-5) var(--space-7);
+  }
+
+  .page-head h1 {
+    font-size: 26px;
+  }
+
+  .toast {
+    bottom: var(--space-5);
+  }
+}

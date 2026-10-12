@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1e3d">
+  <title>Parking · ParkSathi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/parking.css">
+  <script src="js/app.js"></script>
+  <script>requireLogin();</script>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="home.html" class="brand"><span class="brand-mark">P</span>ParkSathi</a>
+    <nav class="topbar-nav">
+      <a href="home.html"><i class="ri-home-5-line"></i>Home</a>
+      <a href="parking.html" class="active"><i class="ri-parking-box-line"></i>Parking</a>
+      <a href="qr.html"><i class="ri-qr-code-line"></i>My QR</a>
+    </nav>
+    <div class="topbar-right">
+      <span class="user-chip" id="userName"></span>
+      <button class="icon-btn" id="logoutBtn" aria-label="Logout"><i class="ri-logout-box-r-line"></i></button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Parking slots</h1>
+      <p>Tap an empty bay to park. Tap a parked vehicle to exit.</p>
+    </div>
+
+    <div class="toolbar">
+      <form class="input-wrap" id="searchForm">
+        <i class="ri-search-line"></i>
+        <input class="input input-plate" id="searchInput" type="search" placeholder="Find vehicle number" autocomplete="off">
+      </form>
+      <div class="segmented" id="filter">
+        <button type="button" class="active" data-filter="all">All</button>
+        <button type="button" data-filter="car"><i class="ri-car-line"></i>Car</button>
+        <button type="button" data-filter="bike"><i class="ri-motorbike-line"></i>Bike</button>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i class="dot free"></i>Free</span>
+      <span><i class="dot busy"></i>Occupied</span>
+      <span class="rates">Car ₹20/hr · Bike ₹10/hr</span>
+    </div>
+
+    <div id="zones"></div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="home.html"><i class="ri-home-5-line"></i>Home</a>
+    <a href="parking.html" class="active"><i class="ri-parking-box-line"></i>Parking</a>
+    <a href="qr.html"><i class="ri-qr-code-line"></i>My QR</a>
+  </nav>
+
+  <!-- Bottom sheet (mobile) / dialog (desktop) -->
+  <div class="sheet-backdrop" id="sheet" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-grip"></div>
+      <div class="sheet-head">
+        <div>
+          <h3 id="sheetTitle"></h3>
+          <p id="sheetSub"></p>
+        </div>
+        <button class="icon-btn" id="sheetClose" aria-label="Close"><i class="ri-close-line"></i></button>
+      </div>
+
+      <!-- Park form (free slot) -->
+      <form id="parkForm" novalidate>
+        <div class="field">
+          <label for="plateInput">Vehicle number</label>
+          <div class="plate-field">
+            <span class="plate-ind">IND</span>
+            <input class="input input-plate" id="plateInput" type="text" placeholder="MH12AB1234" maxlength="13" autocomplete="off">
+          </div>
+          <p class="error hidden" id="plateError"></p>
+        </div>
+        <div class="field">
+          <label for="phoneInput">Owner mobile <span class="muted">(optional)</span></label>
+          <div class="input-wrap">
+            <i class="ri-smartphone-line"></i>
+            <input class="input" id="phoneInput" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit number">
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit"><i class="ri-login-box-line"></i>Park vehicle</button>
+      </form>
+
+      <!-- Exit view (occupied slot) -->
+      <div id="exitView" class="hidden">
+        <ul class="detail-list" id="exitDetails"></ul>
+        <button class="btn btn-danger btn-block" id="exitBtn"><i class="ri-logout-box-line"></i><span></span></button>
+      </div>
+
+      <!-- Park hone ke baad: parking ticket -->
+      <div id="ticketView" class="hidden">
+        <div id="ticketBox"></div>
+        <button class="btn btn-primary btn-block done-btn" type="button"><i class="ri-check-line"></i>Done</button>
+      </div>
+
+      <!-- Exit ke baad: receipt -->
+      <div id="receiptView" class="hidden">
+        <div id="receiptBox"></div>
+        <button class="btn btn-primary btn-block done-btn" type="button"><i class="ri-check-line"></i>Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/parking.js"></script>
+</body>
+</html>
